@@ -1,2 +1,11 @@
+//createProduct
+POST http://localhost:3003/product/create
+Content-Type: application/json
 
+{
+  "name":"TesteAgrVai2",
+  "description":"TesteAgrVai2",
+  "price": 2.78,
+  "qtyInStock": 10
+}
 
