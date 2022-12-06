@@ -7,12 +7,20 @@ export class ProductController {
     private productBusiness: ProductBusiness
   ) { }
 
-  public createProduct = async ( req: Request, res: Response) => {
+  public createProduct = async (req: Request, res: Response) => {
     try {
       const { name, description, price, qtyInStock } = req.body
       const fields: createProductDto = { name, description, price, qtyInStock }
       await this.productBusiness.createProduct(fields)
       res.status(200).send("Product created successfully!")
+    } catch (error: any) {
+      res.status(error.statusCode || 400).send({ error: error.message })
+    }
+  }
+  public findAllProducts = async (req: Request, res: Response) => {
+    try {
+      const result = await this.productBusiness.findAll()
+      res.status(200).send(result)
     } catch (error: any) {
       res.status(error.statusCode || 400).send({ error: error.message })
     }

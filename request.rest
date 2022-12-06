@@ -3,9 +3,12 @@ POST http://localhost:3003/product/create
 Content-Type: application/json
 
 {
-  "name":"TesteAgrVai2",
-  "description":"TesteAgrVai2",
-  "price": 2.78,
-  "qtyInStock": 10
+  "name":"Cholate Nestle",
+  "description":"Cholate ao leite 100g",
+  "price": 5.50,
+  "qtyInStock": 700
 }
 
+###
+//findAllProducts
+GET http://localhost:3003/product

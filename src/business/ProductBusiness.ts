@@ -13,7 +13,7 @@ export class ProductBusiness {
     try {
       const { name, description, price, qtyInStock } = fields
 
-      if(!name || typeof name!=="string"){
+      if (!name || typeof name !== "string") {
         throw new CustomError(422, "Name invalid")
       }
 
@@ -21,7 +21,7 @@ export class ProductBusiness {
         throw new CustomError(422, "Description invalid")
       }
 
-      if(!price || typeof price !== "number"|| price <= 0 ){
+      if (!price || typeof price !== "number" || price <= 0) {
         throw new CustomError(422, "Price invalid")
       }
 
@@ -29,15 +29,24 @@ export class ProductBusiness {
         throw new CustomError(422, "Quantity invalid")
       }
 
-      const product = new Product( name, description, price)
+      const product = new Product(name, description, price)
       const stock = new Stock(qtyInStock)
 
-      await this.productData.createProduct(product, stock)
+      await this.productData.create(product, stock)
 
     } catch (error: any) {
       throw new CustomError(error.statusCode, error.message)
     }
   }
+
+  findAll = async () => {
+    try {
+      return this.productData.findAll()
+    } catch (error: any) {
+      throw new CustomError(error.statusCode, error.message)
+    }
+  }
+
 }
 
 export default new ProductBusiness(

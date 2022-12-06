@@ -5,7 +5,7 @@ import { BaseDatabase } from "./BaseDatabase";
 
 export default class ProductData {
 
-  createProduct = async (product: Product, stock: Stock): Promise<void> => {
+  create = async (product: Product, stock: Stock): Promise<void> => {
     try {
       await BaseDatabase.product.create({
         data: {
@@ -19,6 +19,18 @@ export default class ProductData {
           }
         }
       })
+    } catch (error: any) {
+      throw new CustomError(500, error.sqlMessage)
+    }
+  }
+  findAll = async () => {
+    try {
+      const products = await BaseDatabase.product.findMany({
+        include: {
+          Stock: true
+        }
+      })
+      return products
     } catch (error: any) {
       throw new CustomError(500, error.sqlMessage)
     }
