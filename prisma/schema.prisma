@@ -16,6 +16,7 @@ model Product {
   description String
   price       Float
   Stock       Stock[]
+  Items       Items[]
 
   @@map("products")
 }
@@ -27,4 +28,26 @@ model Stock {
   idProduct  Int
 
   @@map("stock")
+}
+
+model List {
+  id         Int      @id @default(autoincrement())
+  clientName String
+  listDate   DateTime
+  totalPrice Float
+  Items      Items[]
+
+  @@map("lists")
+}
+
+model Items {
+  id        Int     @id @default(autoincrement())
+  list      List    @relation(fields: [idList], references: [id])
+  idList    Int
+  product   Product @relation(fields: [idProduct], references: [id])
+  idProduct Int
+  quantity  Int
+  unitPrice Float
+
+  @@map("items")
 }
